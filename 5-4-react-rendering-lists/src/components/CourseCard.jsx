@@ -10,18 +10,17 @@ export default function CourseCard({ course, index, onMutateCourse }) {
      ========================================================= */
 
   function toggleTask(id) {
-      onMutateCourse(index, (task) =>
-        tasks.map((t) => 
-          t.id === id ? { ...t, isDone: !t.isDone } : t
-        )
-      );
+    onMutateCourse(index, (tasks) =>
+      tasks.map((t) =>
+        t.id === id ? { ...t, isDone: !t.isDone } : t
+      )
+    );
   }
 
   function deleteTask(id) {
-    // TODO (TASK 4): remove the task with matching id
-    onMutateCourse(index, (t) =>
+    onMutateCourse(index, (tasks) =>
       tasks.filter((t) => t.id !== id)
-  );
+    );
   }
 
 
@@ -31,15 +30,14 @@ export default function CourseCard({ course, index, onMutateCourse }) {
         <h2>{course.title}</h2>
 
         {course.tasks.length > 0 && 
-          course.tasks.every((t) => t.isDone) && (
-            <span className="badge success">All caught Up</span>
+          course.tasks.every((task) => task.isDone) && (
+            <span className="badge success">All caught up</span>
           )
         }
       </header>
 
       <section className="tasksSection">
-
-        {/* DISPLAY ONLY: Show a message when there are no tasks */}
+        {course.tasks.length === 0 && <p className="muted">No tasks yet.</p>}
         
         <ul className="tasks">
           {
